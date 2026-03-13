@@ -17,6 +17,18 @@
 
 ---
 
+<p align="center">
+  <em>If this project helped you, please consider buying me a coffee</em> ☕
+</p>
+
+<p align="center">
+  <a href="https://buymeacoffee.com/aaamoeder">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="217">
+  </a>
+</p>
+
+---
+
 ## Features
 
 | Feature | Description |
