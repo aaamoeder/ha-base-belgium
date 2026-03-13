@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "BASE Belgium",
+        "description": "Voer je BASE Belgium login gegevens in.",
+        "data": {
+          "phone": "Mobiel nummer of e-mailadres",
+          "password": "Wachtwoord"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Opnieuw aanmelden bij BASE Belgium",
+        "description": "Je sessie is verlopen. Voer je wachtwoord opnieuw in.",
+        "data": {
+          "password": "Wachtwoord"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ongeldige inloggegevens",
+      "cannot_connect": "Kan niet verbinden met BASE Belgium"
+    },
+    "abort": {
+      "already_configured": "Dit nummer is al geconfigureerd",
+      "reauth_successful": "Opnieuw aanmelden gelukt"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "BASE Belgium opties",
+        "data": {
+          "scan_interval": "Verversingsinterval (minuten)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "credit": {
+        "name": "Tegoed"
+      },
+      "monetary_used": {
+        "name": "Verbruikt"
+      },
+      "monetary_remaining": {
+        "name": "Resterend"
+      },
+      "monetary_percentage": {
+        "name": "Verbruik percentage"
+      },
+      "data_total": {
+        "name": "Data totaal"
+      },
+      "data_used": {
+        "name": "Data verbruikt"
+      },
+      "data_remaining": {
+        "name": "Data resterend"
+      },
+      "days_remaining": {
+        "name": "Dagen resterend"
+      },
+      "out_of_bundle": {
+        "name": "Buiten bundel"
+      },
+      "data_today": {
+        "name": "Data vandaag"
+      }
+    }
+  }
+}

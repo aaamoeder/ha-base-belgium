@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "BASE Belgium",
+        "description": "Enter your BASE Belgium login credentials.",
+        "data": {
+          "phone": "Phone number or email",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate BASE Belgium",
+        "description": "Your session has expired. Please enter your password again.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid credentials",
+      "cannot_connect": "Cannot connect to BASE Belgium"
+    },
+    "abort": {
+      "already_configured": "This number is already configured",
+      "reauth_successful": "Re-authentication successful"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "BASE Belgium options",
+        "data": {
+          "scan_interval": "Update interval (minutes)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "credit": {
+        "name": "Credit"
+      },
+      "monetary_used": {
+        "name": "Used"
+      },
+      "monetary_remaining": {
+        "name": "Remaining"
+      },
+      "monetary_percentage": {
+        "name": "Usage percentage"
+      },
+      "data_total": {
+        "name": "Data total"
+      },
+      "data_used": {
+        "name": "Data used"
+      },
+      "data_remaining": {
+        "name": "Data remaining"
+      },
+      "days_remaining": {
+        "name": "Days remaining"
+      },
+      "out_of_bundle": {
+        "name": "Out of bundle"
+      },
+      "data_today": {
+        "name": "Data today"
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "BASE Belgium",
+        "description": "Geben Sie Ihre BASE Belgium Anmeldedaten ein.",
+        "data": {
+          "phone": "Handynummer oder E-Mail",
+          "password": "Passwort"
+        }
+      },
+      "reauth_confirm": {
+        "title": "BASE Belgium erneut authentifizieren",
+        "description": "Ihre Sitzung ist abgelaufen. Bitte geben Sie Ihr Passwort erneut ein.",
+        "data": {
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ungültige Anmeldedaten",
+      "cannot_connect": "Verbindung zu BASE Belgium nicht möglich"
+    },
+    "abort": {
+      "already_configured": "Diese Nummer ist bereits konfiguriert",
+      "reauth_successful": "Erneute Authentifizierung erfolgreich"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "BASE Belgium Optionen",
+        "data": {
+          "scan_interval": "Aktualisierungsintervall (Minuten)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "credit": {
+        "name": "Guthaben"
+      },
+      "monetary_used": {
+        "name": "Verbraucht"
+      },
+      "monetary_remaining": {
+        "name": "Verbleibend"
+      },
+      "monetary_percentage": {
+        "name": "Verbrauch Prozentsatz"
+      },
+      "data_total": {
+        "name": "Daten gesamt"
+      },
+      "data_used": {
+        "name": "Daten verbraucht"
+      },
+      "data_remaining": {
+        "name": "Daten verbleibend"
+      },
+      "days_remaining": {
+        "name": "Tage verbleibend"
+      },
+      "out_of_bundle": {
+        "name": "Außerhalb Paket"
+      },
+      "data_today": {
+        "name": "Daten heute"
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "BASE Belgium",
+        "description": "Entrez vos identifiants BASE Belgium.",
+        "data": {
+          "phone": "Numéro de téléphone ou e-mail",
+          "password": "Mot de passe"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Ré-authentification BASE Belgium",
+        "description": "Votre session a expiré. Veuillez entrer votre mot de passe.",
+        "data": {
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Identifiants invalides",
+      "cannot_connect": "Impossible de se connecter à BASE Belgium"
+    },
+    "abort": {
+      "already_configured": "Ce numéro est déjà configuré",
+      "reauth_successful": "Ré-authentification réussie"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options BASE Belgium",
+        "data": {
+          "scan_interval": "Intervalle de mise à jour (minutes)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "credit": {
+        "name": "Crédit"
+      },
+      "monetary_used": {
+        "name": "Utilisé"
+      },
+      "monetary_remaining": {
+        "name": "Restant"
+      },
+      "monetary_percentage": {
+        "name": "Pourcentage d'utilisation"
+      },
+      "data_total": {
+        "name": "Données total"
+      },
+      "data_used": {
+        "name": "Données utilisées"
+      },
+      "data_remaining": {
+        "name": "Données restantes"
+      },
+      "days_remaining": {
+        "name": "Jours restants"
+      },
+      "out_of_bundle": {
+        "name": "Hors forfait"
+      },
+      "data_today": {
+        "name": "Données aujourd'hui"
+      }
+    }
+  }
+}
