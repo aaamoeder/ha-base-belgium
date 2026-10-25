@@ -1,3 +1,6 @@
+## Purpose
+Home Assistant custom integration (HACS) that shows the data usage, remaining credit, billing cycle and out-of-bundle costs of a BASE Belgium mobile subscription as sensors, so they can be used in dashboards and automations.
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/aaamoeder/ha-base-belgium/main/brand/icon.png" alt="BASE Belgium for Home Assistant" width="128">
 </p>
