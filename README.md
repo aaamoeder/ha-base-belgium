@@ -137,6 +137,10 @@ BASE Belgium does not provide a public API. This integration authenticates via t
 | Sensors showing "unknown" | Wait for the first data fetch (up to 4 hours) or check logs for errors |
 | Data values seem wrong | BASE updates usage data with some delay; check again after next poll |
 
+## Status
+
+This integration is in the **alpha** phase (current version `1.0.0-alpha.1`). It works for the maintainer's own BASE Belgium subscription, but it relies on undocumented BASE APIs and has no known user base yet. Phases follow prototype, alpha, beta, release candidate, release; the maintainer decides each step. Needed for beta: confirmed use by a few other subscribers, a list of known issues and a tested behaviour when BASE changes its API.
+
 ## Disclaimer
 
 This integration is **not affiliated with or endorsed by BASE or Telenet**. It relies on undocumented APIs, which means it may break if BASE changes their systems. Use at your own risk.
