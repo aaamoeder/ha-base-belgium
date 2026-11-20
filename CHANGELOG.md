@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.0.0-alpha.6] - 2026-11-20
+
+### 🎨 Improved
+- Each device now shows its phone number as serial number on the device page, so devices with a custom name can still be matched to their SIM.
+
 ## [1.0.0-alpha.5] - 2026-11-20
 
 ### ✨ Added

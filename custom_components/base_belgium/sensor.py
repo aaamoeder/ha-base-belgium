@@ -118,6 +118,7 @@ class BaseBelgiumSensorBase(CoordinatorEntity, SensorEntity):
             "name": f"BASE {self._label}",
             "manufacturer": "BASE",
             "model": "Mobile",
+            "serial_number": self._phone_display,
         }
 
     def _get_usage(self) -> dict:
