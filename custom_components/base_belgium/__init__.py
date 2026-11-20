@@ -6,6 +6,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceEntry
 
 from .const import DOMAIN
 from .coordinator import BaseBelgiumCoordinator
@@ -32,6 +33,25 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def _async_update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Handle options update — reload integration to apply new scan interval."""
     await hass.config_entries.async_reload(entry.entry_id)
+
+
+async def async_remove_config_entry_device(
+    hass: HomeAssistant, entry: ConfigEntry, device_entry: DeviceEntry
+) -> bool:
+    """Allow removing a device whose number is no longer in the BASE account."""
+    coordinator: BaseBelgiumCoordinator | None = hass.data.get(DOMAIN, {}).get(
+        entry.entry_id
+    )
+    if coordinator is None or coordinator.data is None:
+        return True
+    active = {
+        sub.get("identifier")
+        for sub in coordinator.data.get("subscriptions", [])
+    }
+    return not any(
+        domain == DOMAIN and identifier in active
+        for domain, identifier in device_entry.identifiers
+    )
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
