@@ -11,8 +11,9 @@
       },
       "reauth_confirm": {
         "title": "BASE Belgium erneut authentifizieren",
-        "description": "Ihre Sitzung ist abgelaufen. Bitte geben Sie Ihr Passwort erneut ein. Wenn Sie sich jetzt mit einer anderen Nummer oder E-Mail bei My BASE anmelden, verwenden Sie stattdessen Neu konfigurieren.",
+        "description": "Die Anmeldung bei My BASE ist fehlgeschlagen. Prüfen Sie die Handynummer oder E-Mail, mit der Sie sich bei My BASE anmelden, und geben Sie Ihr Passwort ein.",
         "data": {
+          "phone": "Handynummer oder E-Mail",
           "password": "Passwort"
         }
       },

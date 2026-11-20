@@ -3,6 +3,14 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.0.0-alpha.3] - 2026-11-20
+
+### 🎨 Improved
+- Re-authentication now also shows the login field (phone number or email), prefilled with the current login. The "Re-authenticate" button in the Home Assistant notification is enough to switch to a new login; Reconfigure is no longer the only way.
+
+### 🌍 Translations
+- Updated re-authentication texts in English, Dutch, French and German.
+
 ## [1.0.0-alpha.2] - 2026-11-20
 
 ### ✨ Added

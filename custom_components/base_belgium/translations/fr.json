@@ -11,8 +11,9 @@
       },
       "reauth_confirm": {
         "title": "Ré-authentification BASE Belgium",
-        "description": "Votre session a expiré. Veuillez entrer votre mot de passe. Si vous vous connectez maintenant à My BASE avec un autre numéro ou e-mail, utilisez plutôt Reconfigurer.",
+        "description": "La connexion à My BASE a échoué. Vérifiez le numéro de téléphone ou l'e-mail avec lequel vous vous connectez à My BASE et entrez votre mot de passe.",
         "data": {
+          "phone": "Numéro de téléphone ou e-mail",
           "password": "Mot de passe"
         }
       },

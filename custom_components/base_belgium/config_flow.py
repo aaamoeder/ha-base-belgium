@@ -83,13 +83,13 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
     ) -> FlowResult:
         """Handle re-authentication confirmation."""
         errors: dict[str, str] = {}
+        reauth_entry = self._get_reauth_entry()
 
         if user_input is not None:
-            reauth_entry = self._get_reauth_entry()
-            phone = reauth_entry.data[CONF_PHONE]
+            login = user_input[CONF_PHONE].strip()
             password = user_input[CONF_PASSWORD]
 
-            api = BaseBelgiumApi(phone, password)
+            api = BaseBelgiumApi(login, password)
             try:
                 await self.hass.async_add_executor_job(api.login)
             except BaseBelgiumAuthError:
@@ -100,8 +100,8 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
             else:
                 return self.async_update_reload_and_abort(
                     reauth_entry,
-                    data={
-                        CONF_PHONE: phone,
+                    data_updates={
+                        CONF_PHONE: login,
                         CONF_PASSWORD: password,
                     },
                 )
@@ -112,6 +112,10 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="reauth_confirm",
             data_schema=vol.Schema(
                 {
+                    vol.Required(
+                        CONF_PHONE,
+                        default=reauth_entry.data[CONF_PHONE],
+                    ): str,
                     vol.Required(CONF_PASSWORD): str,
                 }
             ),
