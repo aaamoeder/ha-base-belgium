@@ -11,8 +11,16 @@
       },
       "reauth_confirm": {
         "title": "Ré-authentification BASE Belgium",
-        "description": "Votre session a expiré. Veuillez entrer votre mot de passe.",
+        "description": "Votre session a expiré. Veuillez entrer votre mot de passe. Si vous vous connectez maintenant à My BASE avec un autre numéro ou e-mail, utilisez plutôt Reconfigurer.",
         "data": {
+          "password": "Mot de passe"
+        }
+      },
+      "reconfigure": {
+        "title": "Modifier l'identifiant",
+        "description": "Modifiez le numéro de téléphone ou l'e-mail avec lequel vous vous connectez à My BASE, puis entrez votre mot de passe.",
+        "data": {
+          "phone": "Numéro de téléphone ou e-mail",
           "password": "Mot de passe"
         }
       }
@@ -23,7 +31,8 @@
     },
     "abort": {
       "already_configured": "Ce numéro est déjà configuré",
-      "reauth_successful": "Ré-authentification réussie"
+      "reauth_successful": "Ré-authentification réussie",
+      "reconfigure_successful": "Identifiant modifié avec succès"
     }
   },
   "options": {

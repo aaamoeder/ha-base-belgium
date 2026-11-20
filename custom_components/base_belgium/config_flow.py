@@ -118,6 +118,50 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
             errors=errors,
         )
 
+    async def async_step_reconfigure(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        """Change the login (phone number or email) and password."""
+        errors: dict[str, str] = {}
+        reconfigure_entry = self._get_reconfigure_entry()
+
+        if user_input is not None:
+            login = user_input[CONF_PHONE].strip()
+            password = user_input[CONF_PASSWORD]
+
+            api = BaseBelgiumApi(login, password)
+            try:
+                await self.hass.async_add_executor_job(api.login)
+            except BaseBelgiumAuthError:
+                errors["base"] = "invalid_auth"
+            except Exception:
+                _LOGGER.exception("Unexpected error during reconfigure")
+                errors["base"] = "cannot_connect"
+            else:
+                return self.async_update_reload_and_abort(
+                    reconfigure_entry,
+                    data_updates={
+                        CONF_PHONE: login,
+                        CONF_PASSWORD: password,
+                    },
+                )
+            finally:
+                await self.hass.async_add_executor_job(api.close)
+
+        return self.async_show_form(
+            step_id="reconfigure",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        CONF_PHONE,
+                        default=reconfigure_entry.data[CONF_PHONE],
+                    ): str,
+                    vol.Required(CONF_PASSWORD): str,
+                }
+            ),
+            errors=errors,
+        )
+
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlow:

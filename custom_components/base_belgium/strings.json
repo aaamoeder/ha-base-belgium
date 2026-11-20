@@ -11,8 +11,16 @@
       },
       "reauth_confirm": {
         "title": "Re-authenticate BASE Belgium",
-        "description": "Your session has expired. Please enter your password again.",
+        "description": "Your session has expired. Please enter your password again. If you now log in to My BASE with a different phone number or email, use Reconfigure instead.",
         "data": {
+          "password": "Password"
+        }
+      },
+      "reconfigure": {
+        "title": "Change login",
+        "description": "Change the phone number or email you use to log in to My BASE, and enter your password.",
+        "data": {
+          "phone": "Phone number or email",
           "password": "Password"
         }
       }
@@ -23,7 +31,8 @@
     },
     "abort": {
       "already_configured": "This number is already configured",
-      "reauth_successful": "Re-authentication successful"
+      "reauth_successful": "Re-authentication successful",
+      "reconfigure_successful": "Login updated successfully"
     }
   },
   "options": {

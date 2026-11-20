@@ -11,8 +11,16 @@
       },
       "reauth_confirm": {
         "title": "Opnieuw aanmelden bij BASE Belgium",
-        "description": "Je sessie is verlopen. Voer je wachtwoord opnieuw in.",
+        "description": "Je sessie is verlopen. Voer je wachtwoord opnieuw in. Log je nu op My BASE in met een ander nummer of e-mailadres, gebruik dan Opnieuw configureren.",
         "data": {
+          "password": "Wachtwoord"
+        }
+      },
+      "reconfigure": {
+        "title": "Login wijzigen",
+        "description": "Wijzig het mobiele nummer of e-mailadres waarmee je inlogt op My BASE, en voer je wachtwoord in.",
+        "data": {
+          "phone": "Mobiel nummer of e-mailadres",
           "password": "Wachtwoord"
         }
       }
@@ -23,7 +31,8 @@
     },
     "abort": {
       "already_configured": "Dit nummer is al geconfigureerd",
-      "reauth_successful": "Opnieuw aanmelden gelukt"
+      "reauth_successful": "Opnieuw aanmelden gelukt",
+      "reconfigure_successful": "Login succesvol gewijzigd"
     }
   },
   "options": {

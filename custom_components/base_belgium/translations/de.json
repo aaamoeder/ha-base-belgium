@@ -11,8 +11,16 @@
       },
       "reauth_confirm": {
         "title": "BASE Belgium erneut authentifizieren",
-        "description": "Ihre Sitzung ist abgelaufen. Bitte geben Sie Ihr Passwort erneut ein.",
+        "description": "Ihre Sitzung ist abgelaufen. Bitte geben Sie Ihr Passwort erneut ein. Wenn Sie sich jetzt mit einer anderen Nummer oder E-Mail bei My BASE anmelden, verwenden Sie stattdessen Neu konfigurieren.",
         "data": {
+          "password": "Passwort"
+        }
+      },
+      "reconfigure": {
+        "title": "Anmeldung ändern",
+        "description": "Ändern Sie die Handynummer oder E-Mail, mit der Sie sich bei My BASE anmelden, und geben Sie Ihr Passwort ein.",
+        "data": {
+          "phone": "Handynummer oder E-Mail",
           "password": "Passwort"
         }
       }
@@ -23,7 +31,8 @@
     },
     "abort": {
       "already_configured": "Diese Nummer ist bereits konfiguriert",
-      "reauth_successful": "Erneute Authentifizierung erfolgreich"
+      "reauth_successful": "Erneute Authentifizierung erfolgreich",
+      "reconfigure_successful": "Anmeldung erfolgreich geändert"
     }
   },
   "options": {
