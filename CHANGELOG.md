@@ -3,6 +3,14 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-11-20
+
+### 🎉 Release
+- First stable release since 1.0.0. The code is identical to 1.1.0-alpha.1 and includes everything since 1.0.0: switch login between phone number and email (re-authentication and Reconfigure), masked password field with autocomplete hints, removal of devices whose number left the account, and the phone number as device serial number.
+
+### 📝 Documentation
+- README status updated to released, and a troubleshooting entry for switching to email login.
+
 ## [1.1.0-alpha.1] - 2026-11-20
 
 ### 🔧 Changed

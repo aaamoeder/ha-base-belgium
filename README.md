@@ -136,10 +136,11 @@ BASE Belgium does not provide a public API. This integration authenticates via t
 | Authentication failed | Check credentials, re-authenticate via **Settings > Integrations** |
 | Sensors showing "unknown" | Wait for the first data fetch (up to 4 hours) or check logs for errors |
 | Data values seem wrong | BASE updates usage data with some delay; check again after next poll |
+| Authentication failed after you switched My BASE to email login | Open the re-authentication notification (or Reconfigure) and replace the phone number with your email address |
 
 ## Status
 
-This integration is in the **alpha** phase (current version `1.0.0-alpha.1`). It works for the maintainer's own BASE Belgium subscription, but it relies on undocumented BASE APIs and has no known user base yet. Phases follow prototype, alpha, beta, release candidate, release; the maintainer decides each step. Needed for beta: confirmed use by a few other subscribers, a list of known issues and a tested behaviour when BASE changes its API.
+This integration is **released** (current version `1.1.0`) and in daily use. It relies on undocumented BASE APIs, so a change on the BASE side can break it without warning; please open an issue if that happens.
 
 ## Disclaimer
 
