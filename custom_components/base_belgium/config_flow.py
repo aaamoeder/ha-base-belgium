@@ -10,6 +10,11 @@ from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
 from homeassistant.const import CONF_PASSWORD
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers.selector import (
+    TextSelector,
+    TextSelectorConfig,
+    TextSelectorType,
+)
 
 from .api import BaseBelgiumApi, BaseBelgiumAuthError
 from .const import (
@@ -22,6 +27,17 @@ from .const import (
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+# Login fields with autocomplete hints so the browser password manager can
+# offer saved credentials, and a masked password field.
+LOGIN_SELECTOR = TextSelector(
+    TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete="username")
+)
+PASSWORD_SELECTOR = TextSelector(
+    TextSelectorConfig(
+        type=TextSelectorType.PASSWORD, autocomplete="current-password"
+    )
+)
 
 
 class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -65,8 +81,8 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_PHONE): str,
-                    vol.Required(CONF_PASSWORD): str,
+                    vol.Required(CONF_PHONE): LOGIN_SELECTOR,
+                    vol.Required(CONF_PASSWORD): PASSWORD_SELECTOR,
                 }
             ),
             errors=errors,
@@ -115,8 +131,8 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
                     vol.Required(
                         CONF_PHONE,
                         default=reauth_entry.data[CONF_PHONE],
-                    ): str,
-                    vol.Required(CONF_PASSWORD): str,
+                    ): LOGIN_SELECTOR,
+                    vol.Required(CONF_PASSWORD): PASSWORD_SELECTOR,
                 }
             ),
             errors=errors,
@@ -159,8 +175,8 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
                     vol.Required(
                         CONF_PHONE,
                         default=reconfigure_entry.data[CONF_PHONE],
-                    ): str,
-                    vol.Required(CONF_PASSWORD): str,
+                    ): LOGIN_SELECTOR,
+                    vol.Required(CONF_PASSWORD): PASSWORD_SELECTOR,
                 }
             ),
             errors=errors,

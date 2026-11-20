@@ -3,6 +3,14 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.0.0-alpha.4] - 2026-11-20
+
+### 🔒 Security
+- The password field is now masked in all forms (add, re-authenticate, reconfigure). Before, the password was shown as plain text while typing.
+
+### 🎨 Improved
+- Login and password fields carry `username` and `current-password` autocomplete hints, so the browser password manager can offer and save the credentials.
+
 ## [1.0.0-alpha.3] - 2026-11-20
 
 ### 🎨 Improved
