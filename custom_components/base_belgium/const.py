@@ -1,10 +1,10 @@
-"""Constants for the BASE Belgium integration."""
+"""Constanten voor de BASE Belgium-integratie."""
 
 DOMAIN = "base_belgium"
 
 CONF_PHONE = "phone"
 
-# BASE/Telenet API URLs
+# URL's van de BASE/Telenet-API
 BASE_API = "https://api.prd.base.be"
 BASE_OCAPI = f"{BASE_API}/ocapi"
 BASE_OCAPI_PUBLIC = f"{BASE_OCAPI}/public"
@@ -13,7 +13,7 @@ BASE_OCAPI_OAUTH = f"{BASE_OCAPI}/oauth"
 BASE_OPENID = "https://login.prd.base.be/openid"
 BASE_SECURE = "https://secure.base.be"
 
-# Endpoints
+# Eindpunten
 URL_USERDETAILS = f"{BASE_OCAPI_OAUTH}/userdetails"
 URL_AUTHORIZATION = f"{BASE_OCAPI}/login/authorization/base_be"
 URL_INTROSPECT = f"{BASE_SECURE}/idp/idx/introspect"
@@ -28,6 +28,6 @@ URL_PRODUCT_SPEC = f"{BASE_API}/omapi/public/product"
 URL_ALIAS_LOOKUP = "https://cf-alias-prd.ciam-prod.awsprod.external.telenet.be/base/alias/lookup"
 
 CONF_SCAN_INTERVAL = "scan_interval"
-DEFAULT_SCAN_INTERVAL = 240  # 4 hours in minutes
-MIN_SCAN_INTERVAL = 60  # 1 hour minimum
-MAX_SCAN_INTERVAL = 1440  # 24 hours maximum
+DEFAULT_SCAN_INTERVAL = 240  # 4 uur, in minuten
+MIN_SCAN_INTERVAL = 60  # minimaal 1 uur
+MAX_SCAN_INTERVAL = 1440  # maximaal 24 uur

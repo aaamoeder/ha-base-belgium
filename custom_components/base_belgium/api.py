@@ -1,4 +1,4 @@
-"""API client for BASE Belgium."""
+"""API-client voor BASE Belgium."""
 from __future__ import annotations
 
 import json
@@ -25,18 +25,18 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class BaseBelgiumApiError(Exception):
-    """Base exception for API errors."""
+    """Basisuitzondering voor API-fouten."""
 
 
 class BaseBelgiumAuthError(BaseBelgiumApiError):
-    """Authentication error."""
+    """Fout bij het aanmelden."""
 
 
 class BaseBelgiumApi:
-    """API client for BASE Belgium."""
+    """API-client voor BASE Belgium."""
 
     def __init__(self, username: str, password: str) -> None:
-        """Initialize the API client."""
+        """Initialiseer de API-client."""
         self.username = username
         self.password = password
         self.session = requests.Session()
@@ -49,7 +49,7 @@ class BaseBelgiumApi:
         })
 
     def _resolve_username(self, username: str) -> str:
-        """Resolve phone number to Okta login via alias lookup."""
+        """Zet een telefoonnummer om naar de Okta-login via de alias-lookup."""
         phone = username.replace(" ", "")
         if phone.startswith("0") and len(phone) == 10:
             phone = "+32" + phone[1:]
@@ -75,8 +75,8 @@ class BaseBelgiumApi:
         return phone
 
     def login(self) -> None:
-        """Authenticate with BASE Belgium via Okta IDX flow."""
-        # Step 1: Check if already authenticated
+        """Meld aan bij BASE Belgium via de Okta IDX-flow."""
+        # Stap 1: controleer of we al aangemeld zijn
         response = self.session.get(URL_USERDETAILS, timeout=30)
         if response.status_code == 200:
             _LOGGER.debug("Already authenticated")
@@ -86,7 +86,7 @@ class BaseBelgiumApi:
                 f"Unexpected status from userdetails: {response.status_code}"
             )
 
-        # Step 2: Get authorization page (follows redirects to Okta)
+        # Stap 2: haal de autorisatiepagina op (volgt de doorverwijzingen naar Okta)
         response = self.session.get(
             URL_AUTHORIZATION,
             params={
@@ -102,7 +102,7 @@ class BaseBelgiumApi:
                 f"Authorization page failed: {response.status_code}"
             )
 
-        # Step 3: Extract stateToken from Okta page
+        # Stap 3: haal de stateToken uit de Okta-pagina
         match = re.search(r'"stateToken":"(.*?)","helpLinks"', response.text)
         if not match:
             match = re.search(r'"stateToken":"(.*?)"', response.text)
@@ -110,21 +110,21 @@ class BaseBelgiumApi:
             raise BaseBelgiumApiError("Could not find stateToken in login page")
         state_token = match.group(1).encode("latin1").decode("unicode_escape")
 
-        # Step 4: Introspect to get stateHandle
+        # Stap 4: introspect om de stateHandle te krijgen
         response = self._post_json(URL_INTROSPECT, {"stateToken": state_token})
         data = response.json()
         state_handle = data.get("stateHandle")
         if not state_handle:
             raise BaseBelgiumApiError("No stateHandle in introspect response")
 
-        # Step 5: Device fingerprint and nonce (for cookies)
+        # Stap 5: apparaatvingerafdruk en nonce (voor de cookies)
         try:
             self.session.get(URL_FINGERPRINT, timeout=10)
             self.session.post(URL_DEVICE_NONCE, timeout=10)
         except Exception:
             _LOGGER.debug("Device fingerprint/nonce failed, continuing")
 
-        # Step 6: Resolve username via alias lookup and identify user
+        # Stap 6: zoek de gebruikersnaam via de alias-lookup en identificeer de gebruiker
         actual_login = self._resolve_username(self.username)
         response = self._post_json(
             URL_IDENTIFY,
@@ -133,7 +133,7 @@ class BaseBelgiumApi:
         data = response.json()
         state_handle = data.get("stateHandle", state_handle)
 
-        # Step 7: Find password authenticator
+        # Stap 7: zoek de wachtwoord-authenticator
         password_id = None
         for auth in data.get("authenticators", {}).get("value", []):
             if auth.get("type") == "password":
@@ -143,7 +143,7 @@ class BaseBelgiumApi:
         if not password_id:
             raise BaseBelgiumAuthError("No password authenticator found")
 
-        # Step 8: Challenge with password authenticator
+        # Stap 8: challenge met de wachtwoord-authenticator
         response = self._post_json(
             URL_CHALLENGE,
             {"authenticator": {"id": password_id}, "stateHandle": state_handle},
@@ -151,7 +151,7 @@ class BaseBelgiumApi:
         data = response.json()
         state_handle = data.get("stateHandle", state_handle)
 
-        # Step 9: Submit password
+        # Stap 9: verstuur het wachtwoord
         response = self._post_json(
             URL_CHALLENGE_ANSWER,
             {"credentials": {"passcode": self.password}, "stateHandle": state_handle},
@@ -165,7 +165,7 @@ class BaseBelgiumApi:
                 f"Authentication failed: {'; '.join(error_msgs)}"
             )
 
-        # Step 10: Follow success redirect to complete OAuth
+        # Stap 10: volg de doorverwijzing na succes om OAuth af te ronden
         success_href = data.get("success", {}).get("href")
         if not success_href:
             raise BaseBelgiumAuthError(
@@ -173,12 +173,12 @@ class BaseBelgiumApi:
             )
         self.session.get(success_href, timeout=30, allow_redirects=True)
 
-        # Verify authentication
+        # Controleer de aanmelding
         response = self.session.get(URL_USERDETAILS, timeout=30)
         if response.status_code != 200:
             raise BaseBelgiumAuthError("Authentication verification failed")
 
-        # Set XSRF token if available
+        # Zet de XSRF-token als die er is
         xsrf = self.session.cookies.get("TOKEN-XSRF")
         if xsrf:
             self.session.headers["X-TOKEN-XSRF"] = xsrf
@@ -186,7 +186,7 @@ class BaseBelgiumApi:
         _LOGGER.debug("Successfully authenticated with BASE Belgium")
 
     def get_product_spec(self, specurl: str) -> dict:
-        """Get product specification (data rates, included services)."""
+        """Haal de productspecificatie op (datatarieven, inbegrepen diensten)."""
         try:
             url = specurl.replace("api.prd.telenet.be", "api.prd.base.be")
             response = self.session.get(url, timeout=15)
@@ -197,7 +197,7 @@ class BaseBelgiumApi:
         return {}
 
     def get_all_data(self, previous_data: dict | None = None) -> dict:
-        """Get all mobile data (subscriptions + usage + product specs)."""
+        """Haal alle mobiele gegevens op (abonnementen, verbruik en productspecificaties)."""
         self.login()
         prev = previous_data or {}
         result = {
@@ -206,7 +206,7 @@ class BaseBelgiumApi:
             "specs": prev.get("specs", {}),
         }
 
-        # Get subscriptions
+        # Haal de abonnementen op
         try:
             subs_response = self.session.get(
                 URL_MOBILE_SUBS,
@@ -225,7 +225,7 @@ class BaseBelgiumApi:
             if not identifier:
                 continue
 
-            # Get usage
+            # Haal het verbruik op
             try:
                 url = f"{URL_MOBILE_USAGE}/{identifier}/usages"
                 usage_response = self.session.get(url, timeout=30)
@@ -234,7 +234,7 @@ class BaseBelgiumApi:
             except Exception as err:
                 _LOGGER.warning("Failed to get usage for %s: %s", identifier, err)
 
-            # Get product spec for data rate calculation
+            # Haal de productspecificatie op voor de berekening van het datatarief
             specurl = sub.get("specurl", "")
             if specurl and specurl not in result["specs"]:
                 spec = self.get_product_spec(specurl)
@@ -244,11 +244,11 @@ class BaseBelgiumApi:
         return result
 
     def close(self) -> None:
-        """Close the session."""
+        """Sluit de sessie."""
         self.session.close()
 
     def _post_json(self, url: str, data: dict) -> requests.Response:
-        """POST JSON data to a URL."""
+        """Stuur JSON-gegevens met POST naar een URL."""
         self.session.headers["Content-Type"] = "application/json;charset=UTF-8"
         response = self.session.post(url, data=json.dumps(data), timeout=30)
         return response

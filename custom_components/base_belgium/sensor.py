@@ -1,4 +1,4 @@
-"""Sensor platform for BASE Belgium."""
+"""Sensorplatform voor BASE Belgium."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -23,14 +23,14 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def _format_phone(phone: str) -> str:
-    """Format phone number for display."""
+    """Maak een telefoonnummer op voor weergave."""
     if len(phone) == 10 and phone.startswith("0"):
         return f"{phone[:4]} {phone[4:6]} {phone[6:8]} {phone[8:]}"
     return phone
 
 
 def _parse_eur(value: str | float | int | None) -> float:
-    """Parse a EUR value that might use comma as decimal separator."""
+    """Lees een EUR-bedrag dat een komma als decimaalteken kan gebruiken."""
     if value is None:
         return 0.0
     if isinstance(value, (int, float)):
@@ -39,7 +39,7 @@ def _parse_eur(value: str | float | int | None) -> float:
 
 
 def _get_data_rate(specs: dict, specurl: str) -> float | None:
-    """Get data rate in EUR per MB from product spec."""
+    """Haal het datatarief in EUR per MB uit de productspecificatie."""
     spec = specs.get(specurl, {})
     for rate in spec.get("rates", []):
         if rate.get("type") == "Mobile data" and rate.get("unit") == "MB":
@@ -52,7 +52,7 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up BASE Belgium sensors from a config entry."""
+    """Zet de BASE Belgium-sensoren op vanuit een config entry."""
     coordinator: BaseBelgiumCoordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[SensorEntity] = []
     data = coordinator.data or {}
@@ -91,7 +91,7 @@ async def async_setup_entry(
 
 
 class BaseBelgiumSensorBase(CoordinatorEntity, SensorEntity):
-    """Base class for BASE Belgium sensors."""
+    """Basisklasse voor de BASE Belgium-sensoren."""
 
     _attr_has_entity_name = True
 
@@ -103,7 +103,7 @@ class BaseBelgiumSensorBase(CoordinatorEntity, SensorEntity):
         phone_display: str,
         label: str,
     ) -> None:
-        """Initialize the sensor."""
+        """Initialiseer de sensor."""
         super().__init__(coordinator)
         self._identifier = identifier
         self._phone_display = phone_display
@@ -112,7 +112,7 @@ class BaseBelgiumSensorBase(CoordinatorEntity, SensorEntity):
 
     @property
     def device_info(self):
-        """Return device info."""
+        """Geef de apparaatgegevens terug."""
         return {
             "identifiers": {(DOMAIN, self._identifier)},
             "name": f"BASE {self._label}",
@@ -122,18 +122,18 @@ class BaseBelgiumSensorBase(CoordinatorEntity, SensorEntity):
         }
 
     def _get_usage(self) -> dict:
-        """Get current usage data for this identifier."""
+        """Haal het huidige verbruik voor dit nummer op."""
         if not self.coordinator.data:
             return {}
         return self.coordinator.data.get("usage", {}).get(self._identifier, {})
 
     def _get_total_monetary(self) -> dict:
-        """Get total monetary data."""
+        """Haal de totale bedragen op."""
         return self._get_usage().get("total", {}).get("monetary", {})
 
 
 class BaseCreditSensor(BaseBelgiumSensorBase):
-    """Sensor for prepaid credit."""
+    """Sensor voor het prepaid-tegoed."""
 
     _attr_translation_key = "credit"
     _attr_icon = "mdi:currency-eur"
@@ -162,7 +162,7 @@ class BaseCreditSensor(BaseBelgiumSensorBase):
 
 
 class BaseMonetaryUsedSensor(BaseBelgiumSensorBase):
-    """Sensor for monetary allowance used."""
+    """Sensor voor het verbruikte bedrag van de bundel."""
 
     _attr_translation_key = "monetary_used"
     _attr_icon = "mdi:cash-minus"
@@ -196,7 +196,7 @@ class BaseMonetaryUsedSensor(BaseBelgiumSensorBase):
 
 
 class BaseMonetaryRemainingSensor(BaseBelgiumSensorBase):
-    """Sensor for monetary allowance remaining."""
+    """Sensor voor het resterende bedrag van de bundel."""
 
     _attr_translation_key = "monetary_remaining"
     _attr_icon = "mdi:cash"
@@ -217,7 +217,7 @@ class BaseMonetaryRemainingSensor(BaseBelgiumSensorBase):
 
 
 class BaseMonetaryPercentageSensor(BaseBelgiumSensorBase):
-    """Sensor for monetary usage percentage."""
+    """Sensor voor het verbruikspercentage van de bundel."""
 
     _attr_translation_key = "monetary_percentage"
     _attr_icon = "mdi:percent"
@@ -238,14 +238,14 @@ class BaseMonetaryPercentageSensor(BaseBelgiumSensorBase):
 
 
 class _BaseDataEquivSensor(BaseBelgiumSensorBase):
-    """Base for data equivalent sensors."""
+    """Basis voor de sensoren met het data-equivalent."""
 
     def __init__(self, coordinator, entry, identifier, phone_display, label, specurl):
         super().__init__(coordinator, entry, identifier, phone_display, label)
         self._specurl = specurl
 
     def _calc_data_gb(self, eur_value: float) -> float | None:
-        """Convert EUR to GB using data rate from product spec."""
+        """Reken EUR om naar GB met het datatarief uit de productspecificatie."""
         specs = (self.coordinator.data or {}).get("specs", {})
         rate = _get_data_rate(specs, self._specurl)
         if rate and rate > 0:
@@ -255,7 +255,7 @@ class _BaseDataEquivSensor(BaseBelgiumSensorBase):
 
 
 class BaseDataEquivTotalSensor(_BaseDataEquivSensor):
-    """Sensor for total data equivalent in GB."""
+    """Sensor voor het totale data-equivalent in GB."""
 
     _attr_translation_key = "data_total"
     _attr_icon = "mdi:database"
@@ -288,7 +288,7 @@ class BaseDataEquivTotalSensor(_BaseDataEquivSensor):
 
 
 class BaseDataEquivUsedSensor(_BaseDataEquivSensor):
-    """Sensor for used data equivalent in GB."""
+    """Sensor voor het verbruikte data-equivalent in GB."""
 
     _attr_translation_key = "data_used"
     _attr_icon = "mdi:download"
@@ -307,7 +307,7 @@ class BaseDataEquivUsedSensor(_BaseDataEquivSensor):
 
 
 class BaseDataEquivRemainingSensor(_BaseDataEquivSensor):
-    """Sensor for remaining data equivalent in GB."""
+    """Sensor voor het resterende data-equivalent in GB."""
 
     _attr_translation_key = "data_remaining"
     _attr_icon = "mdi:download-outline"
@@ -328,7 +328,7 @@ class BaseDataEquivRemainingSensor(_BaseDataEquivSensor):
 
 
 class BaseDaysRemainingSensor(BaseBelgiumSensorBase):
-    """Sensor for days remaining in billing period."""
+    """Sensor voor de resterende dagen in de facturatieperiode."""
 
     _attr_translation_key = "days_remaining"
     _attr_icon = "mdi:calendar-clock"
@@ -356,7 +356,7 @@ class BaseDaysRemainingSensor(BaseBelgiumSensorBase):
 
 
 class BaseOutOfBundleSensor(BaseBelgiumSensorBase):
-    """Sensor for out-of-bundle costs."""
+    """Sensor voor de kosten buiten de bundel."""
 
     _attr_translation_key = "out_of_bundle"
     _attr_icon = "mdi:cash-alert"
@@ -383,7 +383,7 @@ class BaseOutOfBundleSensor(BaseBelgiumSensorBase):
 
 
 class BaseDataTodaySensor(_BaseDataEquivSensor, RestoreEntity):
-    """Sensor for data used today (tracked via daily diff)."""
+    """Sensor voor de data die vandaag verbruikt is (via het dagelijkse verschil)."""
 
     _attr_translation_key = "data_today"
     _attr_icon = "mdi:calendar-today"
@@ -400,7 +400,7 @@ class BaseDataTodaySensor(_BaseDataEquivSensor, RestoreEntity):
         return f"{self._identifier}_data_today"
 
     async def async_added_to_hass(self) -> None:
-        """Restore previous state on startup."""
+        """Herstel de vorige toestand bij het opstarten."""
         await super().async_added_to_hass()
         last_state = await self.async_get_last_state()
         if last_state and last_state.attributes:

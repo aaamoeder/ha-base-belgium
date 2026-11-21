@@ -1,4 +1,4 @@
-"""Diagnostics support for BASE Belgium."""
+"""Diagnose-ondersteuning voor BASE Belgium."""
 from __future__ import annotations
 
 from typing import Any
@@ -17,7 +17,7 @@ TO_REDACT = {CONF_PHONE, CONF_PASSWORD, "identifier", "label", "phone"}
 async def async_get_config_entry_diagnostics(
     hass: HomeAssistant, entry: ConfigEntry
 ) -> dict[str, Any]:
-    """Return diagnostics for a config entry."""
+    """Geef de diagnosegegevens van een config entry terug."""
     coordinator: BaseBelgiumCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     return {

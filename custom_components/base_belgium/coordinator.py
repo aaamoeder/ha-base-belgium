@@ -1,4 +1,4 @@
-"""Data coordinator for BASE Belgium."""
+"""Datacoordinator voor BASE Belgium."""
 from __future__ import annotations
 
 from datetime import timedelta
@@ -17,10 +17,10 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class BaseBelgiumCoordinator(DataUpdateCoordinator):
-    """Coordinator to manage fetching BASE Belgium data."""
+    """Coordinator die het ophalen van de BASE Belgium-gegevens regelt."""
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry) -> None:
-        """Initialize the coordinator."""
+        """Initialiseer de coordinator."""
         scan_interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
         super().__init__(
             hass,
@@ -35,7 +35,7 @@ class BaseBelgiumCoordinator(DataUpdateCoordinator):
         )
 
     async def _async_update_data(self) -> dict:
-        """Fetch data from BASE Belgium API."""
+        """Haal de gegevens op bij de BASE Belgium-API."""
         try:
             return await self.hass.async_add_executor_job(
                 self.api.get_all_data, self.data

@@ -1,4 +1,4 @@
-"""BASE Belgium integration for Home Assistant."""
+"""BASE Belgium-integratie voor Home Assistant."""
 from __future__ import annotations
 
 import logging
@@ -17,7 +17,7 @@ PLATFORMS = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up BASE Belgium from a config entry."""
+    """Zet BASE Belgium op vanuit een config entry."""
     coordinator = BaseBelgiumCoordinator(hass, entry)
     await coordinator.async_config_entry_first_refresh()
 
@@ -31,14 +31,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def _async_update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
-    """Handle options update — reload integration to apply new scan interval."""
+    """Verwerk gewijzigde opties: herlaad de integratie zodat het nieuwe interval geldt."""
     await hass.config_entries.async_reload(entry.entry_id)
 
 
 async def async_remove_config_entry_device(
     hass: HomeAssistant, entry: ConfigEntry, device_entry: DeviceEntry
 ) -> bool:
-    """Allow removing a device whose number is no longer in the BASE account."""
+    """Sta toe dat een apparaat verwijderd wordt als zijn nummer niet meer in het BASE-account zit."""
     coordinator: BaseBelgiumCoordinator | None = hass.data.get(DOMAIN, {}).get(
         entry.entry_id
     )
@@ -55,7 +55,7 @@ async def async_remove_config_entry_device(
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Unload a config entry."""
+    """Ontlaad een config entry."""
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
         coordinator: BaseBelgiumCoordinator = hass.data[DOMAIN].pop(entry.entry_id)
         await hass.async_add_executor_job(coordinator.api.close)

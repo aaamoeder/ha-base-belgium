@@ -1,4 +1,4 @@
-"""Config flow for BASE Belgium."""
+"""Config flow voor BASE Belgium."""
 from __future__ import annotations
 
 import logging
@@ -28,8 +28,8 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-# Login fields with autocomplete hints so the browser password manager can
-# offer saved credentials, and a masked password field.
+# Loginvelden met autocomplete-hints, zodat de wachtwoordbeheerder van de browser
+# opgeslagen gegevens kan aanbieden, en een gemaskeerd wachtwoordveld.
 LOGIN_SELECTOR = TextSelector(
     TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete="username")
 )
@@ -41,14 +41,14 @@ PASSWORD_SELECTOR = TextSelector(
 
 
 class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for BASE Belgium."""
+    """Verwerk de config flow voor BASE Belgium."""
 
     VERSION = 1
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Handle the initial step."""
+        """Verwerk de eerste stap."""
         errors: dict[str, str] = {}
 
         if user_input is not None:
@@ -91,13 +91,13 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_reauth(
         self, entry_data: dict[str, Any]
     ) -> FlowResult:
-        """Handle re-authentication."""
+        """Verwerk de herauthenticatie."""
         return await self.async_step_reauth_confirm()
 
     async def async_step_reauth_confirm(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Handle re-authentication confirmation."""
+        """Verwerk de bevestiging van de herauthenticatie."""
         errors: dict[str, str] = {}
         reauth_entry = self._get_reauth_entry()
 
@@ -141,7 +141,7 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_reconfigure(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Change the login (phone number or email) and password."""
+        """Wijzig de login (telefoonnummer of e-mail) en het wachtwoord."""
         errors: dict[str, str] = {}
         reconfigure_entry = self._get_reconfigure_entry()
 
@@ -185,21 +185,21 @@ class BaseBelgiumConfigFlow(ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlow:
-        """Get the options flow."""
+        """Geef de options flow terug."""
         return BaseBelgiumOptionsFlow(config_entry)
 
 
 class BaseBelgiumOptionsFlow(OptionsFlow):
-    """Handle options for BASE Belgium."""
+    """Verwerk de opties voor BASE Belgium."""
 
     def __init__(self, config_entry: ConfigEntry) -> None:
-        """Initialize options flow."""
+        """Initialiseer de options flow."""
         self.config_entry = config_entry
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Manage the options."""
+        """Beheer de opties."""
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
