@@ -173,10 +173,16 @@ class BaseBelgiumApi:
             )
         self.session.get(success_href, timeout=30, allow_redirects=True)
 
-        # Controleer de aanmelding
+        # Controleer de aanmelding. Het wachtwoord is hier al aanvaard: weigert
+        # BASE toch de sessie (bv. tijdens onderhoud van My BASE), dan is dat een
+        # tijdelijke fout en geen fout wachtwoord, zodat HA vanzelf opnieuw probeert.
         response = self.session.get(URL_USERDETAILS, timeout=30)
         if response.status_code != 200:
-            raise BaseBelgiumAuthError("Authentication verification failed")
+            self.session.cookies.clear()
+            raise BaseBelgiumApiError(
+                "Password accepted but My BASE refused the session "
+                f"(status {response.status_code}); My BASE may be in maintenance"
+            )
 
         # Zet de XSRF-token als die er is
         xsrf = self.session.cookies.get("TOKEN-XSRF")

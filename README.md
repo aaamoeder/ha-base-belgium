@@ -142,7 +142,7 @@ BASE heeft geen publieke API. De integratie meldt aan via dezelfde Okta-loginflo
 
 ## Status
 
-Deze integratie is **uitgebracht** (huidige versie `1.1.1`) en wordt dagelijks gebruikt. Ze steunt op API's van BASE die niet gedocumenteerd zijn, dus een wijziging bij BASE kan ze zonder waarschuwing breken. Open in dat geval een issue.
+Deze integratie is **uitgebracht** (huidige versie `1.1.2`) en wordt dagelijks gebruikt. Ze steunt op API's van BASE die niet gedocumenteerd zijn, dus een wijziging bij BASE kan ze zonder waarschuwing breken. Open in dat geval een issue.
 
 ## Disclaimer
 

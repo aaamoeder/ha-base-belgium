@@ -3,6 +3,11 @@
 Alle noemenswaardige wijzigingen aan dit project staan in dit bestand.
 De opmaak volgt [Keep a Changelog](https://keepachangelog.com/nl/1.1.0/) en het project gebruikt [Semantic Versioning](https://semver.org/lang/nl/).
 
+## [1.1.2] - 2026-11-22
+
+### 🐛 Opgelost
+- Tijdens onderhoud van My BASE meldde de integratie "Ongeldige inloggegevens", terwijl het wachtwoord wel aanvaard werd: BASE gaf daarna gewoon geen sessie. Dat is nu een tijdelijke fout. Home Assistant probeert vanzelf opnieuw in plaats van een nieuwe login te vragen, en het formulier meldt "Kan niet verbinden met BASE Belgium". Een fout wachtwoord geeft nog altijd "Ongeldige inloggegevens".
+
 ## [1.1.1] - 2026-11-21
 
 ### 📝 Documentatie
